@@ -45,7 +45,7 @@ export default function Home() {
                     <div className="hero-content text-center">
                         <div>
                             <h1 className="text-5xl font-bold">Licensed Backflow Testing & Repair in Phoenix</h1>
-                            <p className="py-6 text-lg">State-certified specialists providing annual backflow testing, repairs, and installations. Protect your water supply with Arizona's trusted experts.</p>
+                            <p className="py-6 text-lg">State-certified specialists providing annual backflow testing, repairs, and installations. Protect your water supply with Arizona&apos;s trusted experts.</p>
                             <a href="#contact" className="btn btn-primary">Get Your Free Quote Today</a>
                         </div>
                     </div>
