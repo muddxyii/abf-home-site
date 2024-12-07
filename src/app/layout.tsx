@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Red_Hat_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import React from "react";
 
 const redHat = Red_Hat_Display({ subsets: ['latin'] })
@@ -24,6 +25,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-grow">
             {children}
+            <SpeedInsights />
             <Analytics />
         </main>
         <Footer />
