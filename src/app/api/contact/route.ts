@@ -21,6 +21,7 @@ export async function POST(request: Request) {
 
         return Response.json({ success: true });
     } catch (error) {
+        console.error('Email sending failed:', error);
         return Response.json({ error: 'Failed to send email' }, { status: 500 });
     }
 }
