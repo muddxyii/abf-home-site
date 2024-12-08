@@ -18,7 +18,11 @@ const Footer = () => {
                 <div className="text-left">
                     <h3 className="text-lg font-bold">Areas Served</h3>
                     <p itemProp="areaServed">Metro Phoenix area including Apache Junction, Avondale, Buckeye, Care Free,
-                        Cave Creek, Chandler, and more.</p>
+                        Cave Creek, Chandler, Cottonwood, El Mirage, Flagstaff, Gilbert, Glendale, Globe, Goodyear,
+                        Litchfield Park, Maricopa, Mesa, Peoria, Phoenix, Queen Creek, Safford, Scottsdale, Surprise,
+                        Tempe, and Wickenburg.  Epcor Water, Arizona Water, Gila River Indian Community, Global Water,
+                        Graham County Utilities, Johnson Utilities, Liberty Utilities, Pima Utility,
+                        Salt River Pima Maricopa Indian Community, and Sunrise Water.</p>
                 </div>
             </div>
             <div className="divider"></div>
