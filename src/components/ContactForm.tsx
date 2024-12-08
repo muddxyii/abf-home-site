@@ -9,17 +9,34 @@ const ContactForm = () => {
         address: '',
         message: ''
     });
+    const [status, setStatus] = useState('idle');
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setValues({ ...values, [e.target.name]: e.target.value });
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setStatus('sending');
+
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(values)
+            });
+
+            if (!res.ok) throw new Error();
+            setStatus('sent');
+            setValues({ name: '', email: '', address: '', message: '' });
+        } catch {
+            setStatus('error');
+        }
     };
-
-    const labelClass = "absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-placeholder-shown:px-2 peer-focus:px-2 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 bg-base-100 mx-1 peer-focus:text-base left-1 whitespace-nowrap";
 
     return (
         <div className="flex justify-center w-full">
-            <form className="card w-96 bg-base-100 shadow-xl" itemScope itemType="http://schema.org/ContactPoint">
+            <form onSubmit={handleSubmit} className="card w-96 bg-base-100 shadow-xl" itemScope itemType="http://schema.org/ContactPoint">
                 <div className="card-body">
+                    {status === 'sent' && <div className="alert alert-success">Message sent!</div>}
+                    {status === 'error' && <div className="alert alert-error">Failed to send message</div>}
+
                     <div className="relative">
                         <input
                             type="text"
@@ -27,7 +44,7 @@ const ContactForm = () => {
                             id="name"
                             required
                             value={values.name}
-                            onChange={handleChange}
+                            onChange={(e) => setValues({ ...values, name: e.target.value })}
                             className="input input-bordered w-full pt-4 peer"
                             placeholder=" "
                             aria-label="Full Name"
@@ -44,7 +61,7 @@ const ContactForm = () => {
                             id="email"
                             required
                             value={values.email}
-                            onChange={handleChange}
+                            onChange={(e) => setValues({ ...values, email: e.target.value })}
                             className="input input-bordered w-full pt-4 peer"
                             placeholder=" "
                             aria-label="Email Address"
@@ -61,7 +78,7 @@ const ContactForm = () => {
                            id="address"
                            required
                            value={values.address}
-                           onChange={handleChange}
+                           onChange={(e) => setValues({ ...values, address: e.target.value })}
                            className="textarea textarea-bordered w-full pt-4 peer min-h-[100px]"
                            placeholder=" "
                            aria-label="Service Address"
@@ -78,7 +95,7 @@ const ContactForm = () => {
                            id="message"
                            required
                            value={values.message}
-                           onChange={handleChange}
+                           onChange={(e) => setValues({ ...values, message: e.target.value })}
                            className="textarea textarea-bordered w-full pt-4 peer min-h-[100px]"
                            placeholder=" "
                            aria-label="Service Request Details"
@@ -89,11 +106,19 @@ const ContactForm = () => {
                         </label>
                     </div>
 
-                    <button type="submit" className="btn btn-primary">Request Service Quote</button>
+                    <button
+                        type="submit"
+                        className="btn btn-primary"
+                        disabled={status === 'sending'}
+                    >
+                        {status === 'sending' ? 'Sending...' : 'Request Service Quote'}
+                    </button>
                 </div>
             </form>
         </div>
     );
 };
+
+const labelClass = "absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-placeholder-shown:px-2 peer-focus:px-2 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 bg-base-100 mx-1 peer-focus:text-base left-1 whitespace-nowrap";
 
 export default ContactForm;
