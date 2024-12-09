@@ -9,12 +9,26 @@ const ContactForm = () => {
         address: '',
         message: ''
     });
+    const [errors, setErrors] = useState({
+        email: ''
+    });
     const [status, setStatus] = useState('idle');
+
+    const validateEmail = (email: string) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setErrors(prev => ({ ...prev, email: 'Please enter a valid email address' }));
+            return false;
+        }
+        setErrors(prev => ({ ...prev, email: '' }));
+        return true;
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setStatus('sending');
+        if (!validateEmail(values.email)) return;
 
+        setStatus('sending');
         try {
             const res = await fetch('/api/contact', {
                 method: 'POST',
@@ -61,8 +75,11 @@ const ContactForm = () => {
                             id="email"
                             required
                             value={values.email}
-                            onChange={(e) => setValues({ ...values, email: e.target.value })}
-                            className="input input-bordered w-full pt-4 peer"
+                            onChange={(e) => {
+                                setValues({ ...values, email: e.target.value });
+                                validateEmail(e.target.value);
+                            }}
+                            className={`input input-bordered w-full pt-4 peer ${errors.email ? 'input-error' : ''}`}
                             placeholder=" "
                             aria-label="Email Address"
                             itemProp="email"
@@ -70,6 +87,7 @@ const ContactForm = () => {
                         <label htmlFor="email" className={labelClass}>
                             Email
                         </label>
+                        {errors.email && <div className="text-error text-sm mt-1">{errors.email}</div>}
                     </div>
 
                     <div className="relative">
