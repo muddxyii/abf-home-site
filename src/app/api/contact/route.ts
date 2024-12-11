@@ -7,8 +7,9 @@ export async function POST(request: Request) {
         const { name, email, address, message } = await request.json();
 
         await resend.emails.send({
-            from: 'onboarding@resend.dev',
-            to: 'nikolas@anybackflow.com',
+            from: 'Anybackflow.com Inc. <nikolas@anybackflow.com>',
+            to: 'info@anybackflow.com',
+            replyTo: email,
             subject: `New Service Request from ${name}`,
             html: `
         <h2>New Service Request</h2>
