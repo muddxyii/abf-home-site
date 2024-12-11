@@ -183,7 +183,7 @@ const ContactForm = () => {
                             name="attachment"
                             id="attachment"
                             onChange={handleFileChange}
-                            className="file-input file-input-bordered w-full"
+                            className="file-input file-input-bordered file-input-primary w-full" // Added file-input-primary
                             accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                             aria-label="Attachment"
                         />
