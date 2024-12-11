@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 
+const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB limit
+
+
 const ContactForm = () => {
     const [values, setValues] = useState({
         name: '',
@@ -11,7 +14,8 @@ const ContactForm = () => {
     });
     const [attachment, setAttachment] = useState<File | null>(null);
     const [errors, setErrors] = useState({
-        email: ''
+        email: '',
+        file: ''
     });
     const [status, setStatus] = useState('idle');
 
@@ -25,9 +29,31 @@ const ContactForm = () => {
         return true;
     };
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+
+        if (file) {
+            if (file.size > MAX_FILE_SIZE) {
+                setErrors(prev => ({ ...prev, file: 'File size must be less than 3MB' }));
+                e.target.value = '';
+                setAttachment(null);
+                return;
+            }
+            setErrors(prev => ({ ...prev, file: '' }));
+            setAttachment(file);
+        } else {
+            setAttachment(null);
+            setErrors(prev => ({ ...prev, file: '' }));
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!validateEmail(values.email)) return;
+        if (attachment && attachment.size > MAX_FILE_SIZE) {
+            setErrors(prev => ({ ...prev, file: 'File size must be less than 3MB' }));
+            return;
+        }
 
         setStatus('sending');
         try {
@@ -156,14 +182,19 @@ const ContactForm = () => {
                             type="file"
                             name="attachment"
                             id="attachment"
-                            onChange={(e) => setAttachment(e.target.files?.[0] || null)}
+                            onChange={handleFileChange}
                             className="file-input file-input-bordered w-full"
                             accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                             aria-label="Attachment"
                         />
-                        <div className="text-sm text-gray-500 mt-1">
-                            {attachment ? `Selected file: ${attachment.name}` : 'Attach relevant documents (optional)'}
+                        <div className="text-sm mt-1">
+                            {attachment ? (
+                                <span className="text-gray-500">Selected file: {attachment.name}</span>
+                            ) : (
+                                <span className="text-gray-500">Attach relevant documents (optional, max 3MB)</span>
+                            )}
                         </div>
+                        {errors.file && <div className="text-error text-sm mt-1">{errors.file}</div>}
                     </div>
 
                     <button
