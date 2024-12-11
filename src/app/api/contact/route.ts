@@ -4,8 +4,14 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
     try {
-        const { name, email, address, message } = await request.json();
+        const { name, email, address, message, attachment } = await request.json();
 
+        const emailAttachment = attachment ? [{
+            filename: attachment.filename,
+            content: Buffer.from(attachment.content, 'base64'),
+            contentType: attachment.type
+        }] : [];
+        
         await resend.emails.send({
             from: 'Anybackflow.com Inc. <nikolas@anybackflow.com>',
             to: 'info@anybackflow.com',
@@ -18,6 +24,7 @@ export async function POST(request: Request) {
         <p><strong>Address:</strong> ${address}</p>
         <p><strong>Message:</strong> ${message}</p>
       `,
+            attachments: emailAttachment
         });
 
         return Response.json({ success: true });
