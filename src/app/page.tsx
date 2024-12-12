@@ -40,49 +40,55 @@ export default function Home() {
 
             <Schema data={businessSchema} />
 
-            <main className="container mx-auto px-4 py-12">
-                <section className="hero min-h-[30vh] bg-base-200 rounded-box mb-12">
-                    <div className="hero-content text-center">
-                        <div>
-                            <h1 className="text-5xl font-bold">Licensed Backflow Testing & Repair in Phoenix</h1>
-                            <p className="py-6 text-lg">State-certified specialists providing annual backflow testing, repairs, and installations. Protect your water supply with Arizona&apos;s trusted experts.</p>
-                            <a href="#contact" className="btn btn-primary">Get Your Free Quote Today</a>
+            <main className="bg-base-300 min-h-screen">
+                <div className="container mx-auto px-4 py-12">
+                    <section className="hero min-h-[30vh] bg-base-200 rounded-box mb-12">
+                        <div className="hero-content text-center">
+                            <div>
+                                <h1 className="text-5xl font-bold">Licensed Backflow Testing & Repair in Phoenix</h1>
+                                <p className="py-6 text-lg">State-certified specialists providing annual backflow
+                                    testing, repairs, and installations. Protect your water supply with Arizona&apos;s
+                                    trusted experts.</p>
+                                <a href="#contact" className="btn btn-primary">Get Your Free Quote Today</a>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
 
-                <section className="grid md:grid-cols-2 gap-8 mb-12" aria-label="Our Services">
-                    <div className="card bg-base-100 shadow-xl">
-                        <div className="card-body">
-                            <h2 className="card-title">Expert Backflow Testing</h2>
-                            <p>Licensed specialists for all backflow testing needs: domestic, irrigation, fire systems, and hydrants. City-approved testers with same-day service available.</p>
-                            <ul className="list-disc pl-5 mt-3">
-                                <li>Annual Certification Testing</li>
-                                <li>City Compliance Reports</li>
-                                <li>Electronic Documentation</li>
-                            </ul>
+                    <section className="grid md:grid-cols-2 gap-8 mb-12" aria-label="Our Services">
+                        <div className="card bg-base-100 shadow-xl">
+                            <div className="card-body">
+                                <h2 className="card-title">Expert Backflow Testing</h2>
+                                <p>Licensed specialists for all backflow testing needs: domestic, irrigation, fire
+                                    systems, and hydrants. City-approved testers with same-day service available.</p>
+                                <ul className="list-disc pl-5 mt-3">
+                                    <li>Annual Certification Testing</li>
+                                    <li>City Compliance Reports</li>
+                                    <li>Electronic Documentation</li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div className="card bg-base-100 shadow-xl">
-                        <div className="card-body">
-                            <h2 className="card-title">Professional Repair & Installation</h2>
-                            <p>Complete backflow prevention solutions including repairs, new installations, and security measures. Emergency services available 24/7.</p>
-                            <ul className="list-disc pl-5 mt-3">
-                                <li>Security Cage Installation</li>
-                                <li>Emergency Repairs</li>
-                                <li>New System Installation</li>
-                            </ul>
+                        <div className="card bg-base-100 shadow-xl">
+                            <div className="card-body">
+                                <h2 className="card-title">Professional Repair & Installation</h2>
+                                <p>Complete backflow prevention solutions including repairs, new installations, and
+                                    security measures. Emergency services available 24/7.</p>
+                                <ul className="list-disc pl-5 mt-3">
+                                    <li>Security Cage Installation</li>
+                                    <li>Emergency Repairs</li>
+                                    <li>New System Installation</li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
 
-                <section id="contact" className="card bg-base-200 shadow-xl w-full">
-                    <div className="card-body">
-                        <h2 className="card-title justify-center mb-4">Schedule Your Backflow Service</h2>
-                        <ContactForm/>
-                    </div>
-                </section>
+                    <section id="contact" className="card bg-base-200 shadow-xl w-full">
+                        <div className="card-body">
+                            <h2 className="card-title justify-center mb-4">Schedule Your Backflow Service</h2>
+                            <ContactForm/>
+                        </div>
+                    </section>
+                </div>
             </main>
         </>
-    )
+)
 }
