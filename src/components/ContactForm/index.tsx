@@ -74,7 +74,7 @@ const ContactForm = () => {
                     }
                 });
             }
-            
+
             const res = await fetch('/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
