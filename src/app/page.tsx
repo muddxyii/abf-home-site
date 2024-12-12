@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import ContactForm from '@/components/ContactForm'
+import ContactForm from '@/components/contact-form'
 import Schema from "@/components/Schema";
 
 export default function Home() {
