@@ -3,8 +3,6 @@
 import { useState } from 'react';
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB limit
-
-
 const ContactForm = () => {
     const [values, setValues] = useState({
         name: '',
@@ -210,6 +208,5 @@ const ContactForm = () => {
     );
 };
 
-const labelClass = "absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-placeholder-shown:px-2 peer-focus:px-2 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 bg-base-100 mx-1 peer-focus:text-base left-1 whitespace-nowrap";
-
+const labelClass = "absolute text-sm text-gray-500 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-placeholder-shown:px-2 peer-focus:px-2 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 bg-base-100 mx-1 peer-focus:text-base left-1 whitespace-nowrap transition-all duration-300";
 export default ContactForm;

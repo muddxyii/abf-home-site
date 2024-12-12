@@ -17,15 +17,9 @@ export default {
   plugins: [require("daisyui")],
   daisyui: {
     themes: [
-      "light",
-      "dark",
-      "cupcake",
-      "bumblebee",
-      "emerald",
-      "corporate",
-      "synthwave",
-      "retro",
-      "cyberpunk",
+      "winter",
+      "night",
     ],
+    darkTheme: "night"
   }
 } satisfies Config;
