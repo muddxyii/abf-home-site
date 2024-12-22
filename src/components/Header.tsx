@@ -9,7 +9,7 @@ const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <header className={`relative bg-base-100 ${isMenuOpen ? 'mb-12' : ''}`} itemScope
+        <header className={`relative bg-base-100 ${isMenuOpen ? 'mb-16' : ''}`} itemScope
                 itemType="http://schema.org/Organization">
             <div className="flex items-center justify-between px-4 py-2">
                 <Link href="/" itemProp="name" className="h-12 md:h-16">
