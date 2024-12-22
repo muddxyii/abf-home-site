@@ -200,7 +200,7 @@ const ContactForm = () => {
                         className="btn btn-primary"
                         disabled={status === 'sending'}
                     >
-                        {status === 'sending' ? 'Sending...' : 'Request Service Quote'}
+                        {status === 'sending' ? 'Sending...' : 'Request Service'}
                     </button>
                 </div>
             </form>

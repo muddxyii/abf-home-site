@@ -1,6 +1,7 @@
 import Head from 'next/head'
-import ContactForm from '@/components/ContactForm'
+import ContactForm from '@/components/contact-form'
 import Schema from "@/components/Schema";
+import {FileCheck, Shield, Wrench} from "lucide-react";
 
 export default function Home() {
     const businessSchema = {
@@ -28,67 +29,111 @@ export default function Home() {
         <>
             <Head>
                 <title>Backflow Testing & Repair Services Phoenix | AnyBackflow</title>
-                <meta name="description" content="Licensed backflow prevention specialists serving Phoenix. Annual testing, repairs & installation. Same-day emergency service available. Free quotes." />
-                <meta name="keywords" content="backflow testing phoenix, backflow repair, backflow installation, backflow prevention, water safety" />
-                <meta name="robots" content="index, follow" />
-                <link rel="canonical" href="https://anybackflow.com" />
-                <meta property="og:title" content="Phoenix Backflow Testing & Repair | AnyBackflow" />
-                <meta property="og:description" content="Professional backflow testing, repairs & installation in Phoenix. Licensed specialists, same-day service available." />
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://anybackflow.com" />
+                <meta name="description"
+                      content="Licensed backflow prevention specialists serving Phoenix. Annual testing, repairs & installation. Same-day emergency service available. Free quotes."/>
+                <meta name="keywords"
+                      content="backflow testing phoenix, backflow repair, backflow installation, backflow prevention, water safety"/>
+                <meta name="robots" content="index, follow"/>
+                <link rel="canonical" href="https://anybackflow.com"/>
+                <meta property="og:title" content="Phoenix Backflow Testing & Repair | AnyBackflow"/>
+                <meta property="og:description"
+                      content="Professional backflow testing, repairs & installation in Phoenix. Licensed specialists, same-day service available."/>
+                <meta property="og:type" content="website"/>
+                <meta property="og:url" content="https://anybackflow.com"/>
             </Head>
 
-            <Schema data={businessSchema} />
+            <Schema data={businessSchema}/>
 
             <main className="bg-base-300 min-h-screen">
                 <div className="container mx-auto px-4 py-12">
-                    <section className="hero min-h-[30vh] bg-base-200 rounded-box mb-12">
+
+                    {/* Hero Section */}
+                    <section className="hero min-h-[30vh] rounded-box mb-12 max-w-4xl mx-auto">
                         <div className="hero-content text-center">
                             <div>
-                                <h1 className="text-5xl font-bold">Licensed Backflow Testing & Repair in Phoenix</h1>
-                                <p className="py-6 text-lg">State-certified specialists providing annual backflow
+                                <h1 className="text-4xl md:text-5xl font-bold mb-6">Licensed Backflow Testing & Repair
+                                    in
+                                    Phoenix</h1>
+                                <p className="text-lg mb-8 max-w-2xl mx-auto">State-certified specialists providing
+                                    annual backflow
                                     testing, repairs, and installations. Protect your water supply with Arizona&apos;s
                                     trusted experts.</p>
-                                <a href="#contact" className="btn btn-primary">Get Your Free Quote Today</a>
+                                <div className="flex gap-4 justify-center flex-wrap">
+                                    <a href="#contact" className="btn btn-primary btn-lg">
+                                        Schedule Your Service Today
+                                    </a>
+                                    <div className="flex items-center gap-2 px-6 py-2 bg-base-100 rounded-lg shadow-sm">
+                                        <Shield className="text-primary" size={24}/>
+                                        <span className="text-sm font-medium">ROC 252348 Licensed & Insured</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
 
-                    <section className="grid md:grid-cols-2 gap-8 mb-12" aria-label="Our Services">
-                        <div className="card bg-base-100 shadow-xl">
+                    {/* Services Section */}
+                    <section className="grid md:grid-cols-2 gap-8 mb-16" aria-label="Our Services">
+                        {/* Expert Backflow Testing */}
+                        <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all">
                             <div className="card-body">
-                                <h2 className="card-title">Expert Backflow Testing</h2>
-                                <p>Licensed specialists for all backflow testing needs: domestic, irrigation, fire
-                                    systems, and hydrants. City-approved testers with same-day service available.</p>
-                                <ul className="list-disc pl-5 mt-3">
-                                    <li>Annual Certification Testing</li>
-                                    <li>City Compliance Reports</li>
-                                    <li>Electronic Documentation</li>
+                                <div className="flex items-start gap-4 mb-4">
+                                    <div className="p-3 bg-primary/10 rounded-lg">
+                                        <FileCheck className="text-primary" size={24}/>
+                                    </div>
+                                    <div>
+                                        <h2 className="card-title text-2xl mb-2">Expert Backflow Testing</h2>
+                                        <p>Licensed specialists for all backflow testing
+                                            needs: domestic, irrigation, fire systems, and hydrants.</p>
+                                    </div>
+                                </div>
+                                <ul className="space-y-3">
+                                    {['Annual Certification Testing', 'City Compliance Reports', 'Electronic Documentation'].map((item) => (
+                                        <li key={item} className="flex items-center gap-2">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
+                                            {item}
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
-                        <div className="card bg-base-100 shadow-xl">
+
+                        {/* Professional Repair & Installation */}
+                        <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all">
                             <div className="card-body">
-                                <h2 className="card-title">Professional Repair & Installation</h2>
-                                <p>Complete backflow prevention solutions including repairs, new installations, and
-                                    security measures. Emergency services available 24/7.</p>
-                                <ul className="list-disc pl-5 mt-3">
-                                    <li>Security Cage Installation</li>
-                                    <li>Emergency Repairs</li>
-                                    <li>New System Installation</li>
+                                <div className="flex items-start gap-4 mb-4">
+                                    <div className="p-3 bg-primary/10 rounded-lg">
+                                        <Wrench className="text-primary" size={24}/>
+                                    </div>
+                                    <div>
+                                        <h2 className="card-title text-2xl mb-2">Professional Repair & Installation</h2>
+                                        <p>Complete backflow prevention solutions with 24/7
+                                            emergency services.</p>
+                                    </div>
+                                </div>
+                                <ul className="space-y-3">
+                                    {['Security Cage Installation', 'Emergency Repairs', 'New System Installation'].map((item) => (
+                                        <li key={item} className="flex items-center gap-2">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
+                                            {item}
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
                     </section>
 
-                    <section id="contact" className="card bg-base-200 shadow-xl w-full">
-                        <div className="card-body">
-                            <h2 className="card-title justify-center mb-4">Schedule Your Backflow Service</h2>
-                            <ContactForm/>
+                    {/* Contact Form */}
+                    <section id="contact" className="max-w-2xl mx-auto mb-16">
+                        <div className="card bg-base-100 shadow-xl">
+                            <div className="card-body p-8">
+                                <h2 className="card-title text-3xl text-center justify-center">Schedule Your
+                                    Backflow Service</h2>
+                                <ContactForm/>
+                            </div>
                         </div>
                     </section>
                 </div>
             </main>
         </>
-)
+    )
 }
