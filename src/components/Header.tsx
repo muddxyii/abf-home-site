@@ -1,12 +1,21 @@
 ﻿import React from "react";
 import Link from "next/link";
 import {Phone} from "lucide-react";
+import Image from "next/image";
 
 const Header = () => {
     return (
         <header className="navbar bg-base-100" itemScope itemType="http://schema.org/Organization">
             <div className="flex-1">
-                <Link href="/" itemProp="name" className="btn btn-ghost text-xl">AnyBackflow</Link>
+                <Link href="/" itemProp="name" className="btn btn-ghost h-16">
+                    <Image
+                        src="/images/logo.svg"
+                        alt="AnyBackflow.com Inc"
+                        width={250}
+                        height={60}
+                        className="h-16 w-auto invert dark:invert-0"
+                    />
+                </Link>
             </div>
             <div className="flex-none">
                 <a href="tel:+16022282923"
