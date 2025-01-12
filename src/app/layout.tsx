@@ -12,9 +12,6 @@ const redHat = Red_Hat_Display({subsets: ['latin']})
 export const metadata: Metadata = {
     title: "AnyBackflow.com Inc.",
     description: 'Backflow Inspection, Repair, and Installation Services in Phoenix Metro Area',
-    icons: {
-        icon: '/images/favicon.svg'
-    },
 };
 
 export default function RootLayout({
