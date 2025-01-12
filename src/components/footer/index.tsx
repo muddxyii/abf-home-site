@@ -6,7 +6,8 @@ import FacebookIcon from "@/components/footer/FacebookIcon";
 import AreasServed from "@/components/footer/AreasServed";
 
 const Footer = () => {
-    const currentYear = new Date().getFullYear()
+    const currentYear = new Date().getFullYear();
+    const displayYear = currentYear === 2024 ? "2024" : `2024-${currentYear}`;
 
     return (
         <footer className="footer p-10 bg-base-200 text-base-content" itemScope itemType="http://schema.org/Organization">
@@ -23,7 +24,7 @@ const Footer = () => {
                         <FacebookIcon/>
                     </button>
                     <p className="text-sm">
-                        <span itemProp="copyrightYear">{currentYear}</span> © AnyBackflow.com Inc. - All Rights
+                        <span itemProp="copyrightYear">{displayYear}</span> © AnyBackflow.com Inc. - All Rights
                         Reserved.
                     </p>
                 </div>

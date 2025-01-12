@@ -7,7 +7,7 @@ import Link from "next/link";
 const Header = () => {
     return (
         <header
-            className="navbar bg-base-100 flex flex-wrap items-center justify-between px-4"
+            className="navbar bg-base-100 flex flex-wrap items-center justify-between px-2"
             itemScope
             itemType="http://schema.org/Organization"
         >
