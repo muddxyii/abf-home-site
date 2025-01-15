@@ -3,6 +3,7 @@
 import React from "react";
 import {Phone} from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Header = () => {
     return (
@@ -11,11 +12,15 @@ const Header = () => {
             itemScope
             itemType="http://schema.org/Organization"
         >
-            <div className="flex-1">
-                <Link href="/" itemProp="name" className="btn btn-ghost normal-case text-xl">
-                    AnyBackflow.com Inc
-                </Link>
-            </div>
+            <Link href="/" itemProp="name" className="h-12 md:h-16">
+                <Image
+                    src="/ABFLogo.jpg"
+                    width={250}
+                    height={60}
+                    alt="AnyBackflow.com Inc"
+                    className="h-full w-auto"
+                />
+            </Link>
 
             <div className="flex-none flex flex-wrap items-center gap-2 justify-end">
                 <a href="tel:+16022282923"
