@@ -181,7 +181,7 @@ const ContactForm = () => {
                            itemProp="description"
                        />
                         <label htmlFor="message" className={labelClass}>
-                            Service details (installation, inspection, repair)
+                            Service Details (Job Name, Inspection, Repair)
                         </label>
                     </div>
 
@@ -194,7 +194,8 @@ const ContactForm = () => {
                                 name="repairPermission"
                                 className="checkbox checkbox-primary"
                             />
-                            <span className="ml-2">Yes, you have permission to make any necessary repairs on-site. (Replacement parts and service fees may apply)</span>
+                            <span
+                                className="ml-2">You have permission to make any necessary repairs on-site.</span>
                         </label>
                         <label className="flex items-start mt-2">
                             <input
@@ -202,12 +203,14 @@ const ContactForm = () => {
                                 name="lockPermission"
                                 className="checkbox checkbox-primary"
                             />
-                            <span className="ml-2">Yes, if the location is locked, you have permission to cut the lock and replace it with our lock. (Keys will be mailed to your billing location)</span>
+                            <span className="ml-2">You have permission to cut the lock and replace it.</span>
                         </label>
                     </div>
 
 
                     {/* Attachments */}
+                    <h2 className="text-lg font-semibold">Attach Relevant Documents <br/>(e.g., Notifications, Maps,
+                        Permits)</h2>
                     <div className="relative">
                         <input
                             type="file"
@@ -240,8 +243,7 @@ const ContactForm = () => {
                                 onChange={(e) => setValues({...values, terms: e.target.checked})}
                             />
                             <span className="text-sm">
-                I agree to the <a href="#terms"
-                                  className="text-primary hover:underline">Service Terms and Conditions</a>
+                I agree to the service terms and conditions
               </span>
                         </label>
 
