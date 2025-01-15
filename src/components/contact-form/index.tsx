@@ -193,6 +193,8 @@ const ContactForm = () => {
                                 type="checkbox"
                                 name="repairPermission"
                                 className="checkbox checkbox-primary"
+                                checked={values.repairPermission}
+                                onChange={(e) => setValues({...values, repairPermission: e.target.checked})}
                             />
                             <span
                                 className="ml-2">You have permission to make any necessary repairs on-site.</span>
@@ -202,6 +204,8 @@ const ContactForm = () => {
                                 type="checkbox"
                                 name="lockPermission"
                                 className="checkbox checkbox-primary"
+                                checked={values.lockPermission}
+                                onChange={(e) => setValues({...values, lockPermission: e.target.checked})}
                             />
                             <span className="ml-2">You have permission to cut the lock and replace it.</span>
                         </label>
