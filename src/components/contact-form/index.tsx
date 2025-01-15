@@ -1,9 +1,16 @@
 ﻿'use client'
 
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import {executeReCaptcha, loadReCaptcha} from 'react-recaptcha-v3'
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB limit
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCA_KEY;
+
 const ContactForm = () => {
+    useEffect(() => {
+        loadReCaptcha(RECAPTCHA_SITE_KEY);
+    }, []);
+
     const [values, setValues] = useState({
         name: '',
         email: '',
@@ -51,6 +58,7 @@ const ContactForm = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!validateEmail(values.email)) return;
+
         if (attachment && attachment.size > MAX_FILE_SIZE) {
             setErrors(prev => ({...prev, file: 'File size must be less than 3MB'}));
             return;
@@ -58,7 +66,11 @@ const ContactForm = () => {
 
         setStatus('sending');
         try {
-            const formData = {...values};
+            const token = await executeReCaptcha('contact_form');
+            const formData = {
+                ...values,
+                captchaToken: token
+            };
             if (attachment) {
                 const reader = new FileReader();
                 const fileContent = await new Promise((resolve) => {
@@ -232,11 +244,11 @@ const ContactForm = () => {
                                 <span className="text-gray-500">Attach relevant documents (optional, max 3MB)</span>
                             )}
                         </div>
-                        {errors.file && <div className="text-error text-sm mt-1">{errors.file}</div>}
+                        {errors.file && <div className="text-error text-sm mt-2">{errors.file}</div>}
                     </div>
 
                     {/*Service Terms and Conditions */}
-                    <div className="mt-6 p-4 bg-base-200 rounded-lg">
+                    <div className="mt-46 p-4 bg-base-200 rounded-lg">
                         <label className="flex items-start gap-2">
                             <input
                                 type="checkbox"

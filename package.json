@@ -16,12 +16,14 @@
     "next": "15.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-recaptcha-v3": "^2.0.1",
     "resend": "^4.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-google-recaptcha": "^2.1.9",
     "daisyui": "^4.12.14",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
