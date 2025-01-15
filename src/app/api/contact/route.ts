@@ -35,6 +35,18 @@ export async function POST(request: Request) {
                 <p><strong>Repair Permission:</strong> ${repairPermission ? 'Yes' : 'No'}</p>
                 <p><strong>Replace Lock Permission:</strong> ${lockPermission ? 'Yes' : 'No'}</p>
             `,
+            text: `
+                New Service Request
+                
+                Name: ${name}
+                Email: ${email}
+                Address: ${address}
+                Message: ${message}
+
+                Permissions:
+                Repair Permission: ${repairPermission ? 'Yes' : 'No'}
+                Replace Lock Permission: ${lockPermission ? 'Yes' : 'No'}
+            `,
             attachments: emailAttachment
         });
 
