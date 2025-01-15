@@ -2,15 +2,6 @@
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-async function verifyCaptcha(token: string) {
-    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`
-    });
-    return response.json();
-}
-
 export async function POST(request: Request) {
     try {
         const {
@@ -20,14 +11,8 @@ export async function POST(request: Request) {
             message,
             repairPermission,
             lockPermission,
-            attachment,
-            captchaToken
+            attachment
         } = await request.json();
-
-        const captchaVerification = await verifyCaptcha(captchaToken);
-        if (!captchaVerification.success || captchaVerification.score < 0.5) {
-            return Response.json({error: 'Invalid captcha'}, {status: 400});
-        }
 
         const emailAttachment = attachment ? [{
             filename: attachment.filename,
@@ -49,8 +34,6 @@ export async function POST(request: Request) {
                 <h3>Permissions</h3>
                 <p><strong>Repair Permission:</strong> ${repairPermission ? 'Yes' : 'No'}</p>
                 <p><strong>Replace Lock Permission:</strong> ${lockPermission ? 'Yes' : 'No'}</p>
-                <br/>
-                <p><strong>reCAPTCHA Score: ${captchaVerification.score}</strong></p>
             `,
             text: `
                 New Service Request
