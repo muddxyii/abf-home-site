@@ -12,11 +12,11 @@ const Header = () => {
             itemScope
             itemType="http://schema.org/Organization"
         >
-            <Link href="/" itemProp="name" className="h-12 md:h-16">
+            <Link href="/" itemProp="name" className="h-10 md:h-16">
                 <Image
                     src="/ABFLogo.jpg"
-                    width={250}
-                    height={60}
+                    width={227}
+                    height={42}
                     alt="AnyBackflow.com Inc"
                     className="h-full w-auto"
                 />
