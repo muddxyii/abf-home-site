@@ -37,7 +37,7 @@ export async function POST(request: Request) {
 
         await resend.emails.send({
             from: 'Anybackflow.com Inc. <nikolas@anybackflow.com>',
-            to: 'nikolas@anybackflow.com',
+            to: 'info@anybackflow.com',
             replyTo: email,
             subject: `New Service Request from ${name}`,
             html: `
