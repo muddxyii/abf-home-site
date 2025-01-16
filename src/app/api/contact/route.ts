@@ -11,8 +11,23 @@ export async function POST(request: Request) {
             message,
             repairPermission,
             lockPermission,
-            attachment
+            attachment,
+            recaptchaToken
         } = await request.json();
+
+        const verificationResponse = await fetch(
+            `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+            {method: 'POST'}
+        );
+
+        const verificationData = await verificationResponse.json();
+
+        if (!verificationData.success || verificationData.score < 0.5) {
+            return Response.json(
+                {error: 'reCAPTCHA verification failed'},
+                {status: 400}
+            );
+        }
 
         const emailAttachment = attachment ? [{
             filename: attachment.filename,
@@ -34,6 +49,8 @@ export async function POST(request: Request) {
                 <h3>Permissions</h3>
                 <p><strong>Repair Permission:</strong> ${repairPermission ? 'Yes' : 'No'}</p>
                 <p><strong>Replace Lock Permission:</strong> ${lockPermission ? 'Yes' : 'No'}</p>
+                <br/>
+                <p><strong>reCAPTCHA Score:</strong> ${verificationData.score}</p>
             `,
             text: `
                 New Service Request
@@ -46,13 +63,18 @@ export async function POST(request: Request) {
                 Permissions:
                 Repair Permission: ${repairPermission ? 'Yes' : 'No'}
                 Replace Lock Permission: ${lockPermission ? 'Yes' : 'No'}
+                
+                reCAPTCHA Score: ${verificationData.score}
             `,
             attachments: emailAttachment
         });
 
         return Response.json({success: true});
     } catch (error) {
-        console.error('Email sending failed:', error);
-        return Response.json({error: 'Failed to send email'}, {status: 500});
+        console.error('Request processing failed:', error);
+        return Response.json(
+            {error: 'Failed to process request'},
+            {status: 500}
+        );
     }
 }

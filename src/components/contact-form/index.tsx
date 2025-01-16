@@ -1,9 +1,11 @@
 ﻿'use client'
 
 import {useState} from 'react';
+import {useReCaptcha} from "next-recaptcha-v3";
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB limit
 const ContactForm = () => {
+    const {executeRecaptcha} = useReCaptcha();
     const [values, setValues] = useState({
         name: '',
         email: '',
@@ -58,6 +60,8 @@ const ContactForm = () => {
 
         setStatus('sending');
         try {
+            const token = await executeRecaptcha("contact_form_submit");
+
             const formData = {...values};
             if (attachment) {
                 const reader = new FileReader();
@@ -81,7 +85,10 @@ const ContactForm = () => {
             const res = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(formData)
+                body: JSON.stringify({
+                    ...formData,
+                    recaptchaToken: token
+                })
             });
 
             if (!res.ok) throw new Error();

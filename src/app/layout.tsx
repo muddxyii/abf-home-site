@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import {Analytics} from "@vercel/analytics/react"
 import {SpeedInsights} from "@vercel/speed-insights/next"
 import React from "react";
+import {ReCaptchaProvider} from "next-recaptcha-v3";
 
 export const metadata: Metadata = {
     title: "AnyBackflow.com Inc.",
@@ -21,7 +22,10 @@ export default function RootLayout({
         <body className={`min-h-screen flex flex-col`}>
         <Header/>
         <main className="flex-grow">
-            {children}
+            <ReCaptchaProvider
+                reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}>
+                {children}
+            </ReCaptchaProvider>
             <SpeedInsights/>
             <Analytics/>
         </main>
