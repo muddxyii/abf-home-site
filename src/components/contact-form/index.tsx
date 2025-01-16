@@ -1,14 +1,19 @@
-﻿'use client'
+'use client'
 
-import { useState } from 'react';
+import {useState} from 'react';
+import {useReCaptcha} from "next-recaptcha-v3";
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB limit
 const ContactForm = () => {
+    const {executeRecaptcha} = useReCaptcha();
     const [values, setValues] = useState({
         name: '',
         email: '',
         address: '',
-        message: ''
+        message: '',
+        repairPermission: false,
+        lockPermission: false,
+        terms: false
     });
     const [attachment, setAttachment] = useState<File | null>(null);
     const [errors, setErrors] = useState({
@@ -20,10 +25,10 @@ const ContactForm = () => {
     const validateEmail = (email: string) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            setErrors(prev => ({ ...prev, email: 'Please enter a valid email address' }));
+            setErrors(prev => ({...prev, email: 'Please enter a valid email address'}));
             return false;
         }
-        setErrors(prev => ({ ...prev, email: '' }));
+        setErrors(prev => ({...prev, email: ''}));
         return true;
     };
 
@@ -32,16 +37,16 @@ const ContactForm = () => {
 
         if (file) {
             if (file.size > MAX_FILE_SIZE) {
-                setErrors(prev => ({ ...prev, file: 'File size must be less than 3MB' }));
+                setErrors(prev => ({...prev, file: 'File size must be less than 3MB'}));
                 e.target.value = '';
                 setAttachment(null);
                 return;
             }
-            setErrors(prev => ({ ...prev, file: '' }));
+            setErrors(prev => ({...prev, file: ''}));
             setAttachment(file);
         } else {
             setAttachment(null);
-            setErrors(prev => ({ ...prev, file: '' }));
+            setErrors(prev => ({...prev, file: ''}));
         }
     };
 
@@ -49,13 +54,15 @@ const ContactForm = () => {
         e.preventDefault();
         if (!validateEmail(values.email)) return;
         if (attachment && attachment.size > MAX_FILE_SIZE) {
-            setErrors(prev => ({ ...prev, file: 'File size must be less than 3MB' }));
+            setErrors(prev => ({...prev, file: 'File size must be less than 3MB'}));
             return;
         }
 
         setStatus('sending');
         try {
-            const formData = { ...values };
+            const token = await executeRecaptcha("contact_form_submit");
+
+            const formData = {...values};
             if (attachment) {
                 const reader = new FileReader();
                 const fileContent = await new Promise((resolve) => {
@@ -77,13 +84,21 @@ const ContactForm = () => {
 
             const res = await fetch('/api/contact', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    ...formData,
+                    recaptchaToken: token
+                })
             });
 
             if (!res.ok) throw new Error();
             setStatus('sent');
-            setValues({ name: '', email: '', address: '', message: '' });
+            setValues({
+                name: '', email: '', address: '', message: '',
+                lockPermission: false,
+                repairPermission: false,
+                terms: false
+            });
             setAttachment(null);
         } catch {
             setStatus('error');
@@ -92,11 +107,13 @@ const ContactForm = () => {
 
     return (
         <div className="flex justify-center w-full">
-            <form onSubmit={handleSubmit} className="card w-96 bg-base-100 shadow-xl" itemScope itemType="http://schema.org/ContactPoint">
+            <form onSubmit={handleSubmit} className="card w-96 bg-base-100 shadow-xl" itemScope
+                  itemType="http://schema.org/ContactPoint">
                 <div className="card-body">
                     {status === 'sent' && <div className="alert alert-success">Message sent!</div>}
                     {status === 'error' && <div className="alert alert-error">Failed to send message</div>}
 
+                    <h2 className="text-lg font-semibold">Contact Information</h2>
                     {/* Name */}
                     <div className="relative">
                         <input
@@ -138,6 +155,7 @@ const ContactForm = () => {
                         {errors.email && <div className="text-error text-sm mt-1">{errors.email}</div>}
                     </div>
 
+                    <h2 className="text-lg font-semibold">Service Information</h2>
                     {/* Address */}
                     <div className="relative">
                        <textarea
@@ -152,7 +170,7 @@ const ContactForm = () => {
                            itemProp="address"
                        />
                         <label htmlFor="address" className={labelClass}>
-                            Address (Street, City, Zip Code)
+                            Backflow Address (Street, City, Zip Code)
                         </label>
                     </div>
 
@@ -170,11 +188,40 @@ const ContactForm = () => {
                            itemProp="description"
                        />
                         <label htmlFor="message" className={labelClass}>
-                            How can we help?
+                            Service Details (Job Name, Inspection, Repair)
                         </label>
                     </div>
 
+                    {/*Permissions */}
+                    <h2 className="text-lg font-semibold">Permissions</h2>
+                    <div className="relative mb-2">
+                        <label className="flex items-start">
+                            <input
+                                type="checkbox"
+                                name="repairPermission"
+                                className="checkbox checkbox-primary"
+                                checked={values.repairPermission}
+                                onChange={(e) => setValues({...values, repairPermission: e.target.checked})}
+                            />
+                            <span
+                                className="ml-2">You have permission to make any necessary repairs on-site.</span>
+                        </label>
+                        <label className="flex items-start mt-2">
+                            <input
+                                type="checkbox"
+                                name="lockPermission"
+                                className="checkbox checkbox-primary"
+                                checked={values.lockPermission}
+                                onChange={(e) => setValues({...values, lockPermission: e.target.checked})}
+                            />
+                            <span className="ml-2">You have permission to cut the lock and replace it.</span>
+                        </label>
+                    </div>
+
+
                     {/* Attachments */}
+                    <h2 className="text-lg font-semibold">Attach Relevant Documents <br/>(e.g., Notifications, Maps,
+                        Permits)</h2>
                     <div className="relative">
                         <input
                             type="file"
@@ -193,6 +240,28 @@ const ContactForm = () => {
                             )}
                         </div>
                         {errors.file && <div className="text-error text-sm mt-1">{errors.file}</div>}
+                    </div>
+
+                    {/*Service Terms and Conditions */}
+                    <div className="mt-6 p-4 bg-base-200 rounded-lg">
+                        <label className="flex items-start gap-2">
+                            <input
+                                type="checkbox"
+                                name="terms"
+                                required
+                                className="checkbox checkbox-primary mt-1"
+                                checked={values.terms}
+                                onChange={(e) => setValues({...values, terms: e.target.checked})}
+                            />
+                            <span className="text-sm">
+                I agree to the service terms and conditions
+              </span>
+                        </label>
+
+                        <p className="text-sm mt-2 text-gray-500">
+                            AnyBackflow is not responsible for inaccessible backflow assemblies. Service fees apply for
+                            inaccessible devices.
+                        </p>
                     </div>
 
                     <button
