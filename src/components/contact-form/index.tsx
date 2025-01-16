@@ -164,7 +164,7 @@ const ContactForm = () => {
                            required
                            value={values.address}
                            onChange={(e) => setValues({...values, address: e.target.value})}
-                           className="textarea textarea-bordered w-full pt-4 peer min-h-[100px]"
+                           className="textarea textarea-bordered w-full p-4 pt-8 peer min-h-[100px]"
                            placeholder=" "
                            aria-label="Service Address"
                            itemProp="address"
@@ -182,7 +182,7 @@ const ContactForm = () => {
                            required
                            value={values.message}
                            onChange={(e) => setValues({...values, message: e.target.value})}
-                           className="textarea textarea-bordered w-full pt-4 peer min-h-[100px]"
+                           className="textarea textarea-bordered w-full p-4 pt-8 peer min-h-[100px]"
                            placeholder=" "
                            aria-label="Service Request Details"
                            itemProp="description"
@@ -277,5 +277,5 @@ const ContactForm = () => {
     );
 };
 
-const labelClass = "absolute text-sm text-gray-500 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-placeholder-shown:px-2 peer-focus:px-2 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 bg-base-100 mx-1 peer-focus:text-base left-1 whitespace-nowrap transition-all duration-300";
+const labelClass = "absolute text-sm text-gray-500 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-placeholder-shown:px-2 peer-focus:px-2 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 bg-base-100 mx-1 peer-focus:text-base left-1 transition-all duration-300";
 export default ContactForm;
