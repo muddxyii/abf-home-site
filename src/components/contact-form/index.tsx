@@ -9,6 +9,7 @@ const ContactForm = () => {
     const [values, setValues] = useState({
         name: '',
         email: '',
+        phone: '',
         address: '',
         message: '',
         repairPermission: false,
@@ -94,7 +95,7 @@ const ContactForm = () => {
             if (!res.ok) throw new Error();
             setStatus('sent');
             setValues({
-                name: '', email: '', address: '', message: '',
+                name: '', email: '', phone: '', address: '', message: '',
                 lockPermission: false,
                 repairPermission: false,
                 terms: false
@@ -153,6 +154,25 @@ const ContactForm = () => {
                             Email
                         </label>
                         {errors.email && <div className="text-error text-sm mt-1">{errors.email}</div>}
+                    </div>
+
+                    {/* Phone */}
+                    <div className="relative">
+                        <input
+                            type="tel"
+                            name="phone"
+                            id="phone"
+                            required
+                            value={values.phone}
+                            onChange={(e) => setValues({...values, phone: e.target.value})}
+                            className="input input-bordered w-full pt-4 peer"
+                            placeholder=" "
+                            aria-label="Phone Number"
+                            maxLength={14}
+                        />
+                        <label htmlFor="phone" className={labelClass}>
+                            Phone Number
+                        </label>
                     </div>
 
                     <h2 className="text-lg font-semibold">Service Information</h2>
