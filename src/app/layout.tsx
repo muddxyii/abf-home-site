@@ -1,4 +1,3 @@
-import type {Metadata} from "next";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -7,9 +6,27 @@ import {SpeedInsights} from "@vercel/speed-insights/next"
 import React from "react";
 import {ReCaptchaProvider} from "next-recaptcha-v3";
 
-export const metadata: Metadata = {
-    title: "AnyBackflow.com Inc.",
-    description: 'Backflow Inspection, Repair, and Installation Services in Phoenix Metro Area',
+export const metadata = {
+    title: 'Backflow Testing & Repair Services Phoenix | AnyBackflow',
+    description: 'Licensed backflow prevention specialists serving Phoenix. Annual testing, repairs & installation. Same-day emergency service available. Free quotes.',
+    keywords: 'backflow testing phoenix, backflow repair, backflow installation, backflow prevention, water safety',
+    robots: 'index, follow',
+    openGraph: {
+        title: 'Phoenix Backflow Testing & Repair | AnyBackflow',
+        description: 'Professional backflow testing, repairs & installation in Phoenix. Licensed specialists, same-day service available.',
+        type: 'website',
+        url: 'https://anybackflow.com',
+        siteName: 'AnyBackflow',
+        locale: 'en_US',
+        images: [
+            {
+                url: '/og-image.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'AnyBackflow Services'
+            }
+        ]
+    }
 };
 
 export default function RootLayout({
