@@ -25,6 +25,40 @@ export default function Home() {
         "areaServed": "Phoenix Metropolitan Area"
     }
 
+    const serviceSchema = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Backflow Testing",
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "AnyBackflow"
+        },
+        "areaServed": {
+            "@type": "City",
+            "name": "Phoenix"
+        },
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Backflow Services",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Annual Certification Testing"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Emergency Repairs"
+                    }
+                }
+            ]
+        }
+    };
+
     return (
         <>
             <Head>
@@ -42,7 +76,7 @@ export default function Home() {
                 <meta property="og:url" content="https://anybackflow.com"/>
             </Head>
 
-            <Schema data={businessSchema}/>
+            <Schema data={[businessSchema, serviceSchema]}/>
 
             <main className="bg-base-300 min-h-screen">
                 <div className="container mx-auto px-4 py-12">
