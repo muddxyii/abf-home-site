@@ -274,13 +274,18 @@ const ContactForm = () => {
                                 onChange={(e) => setValues({...values, terms: e.target.checked})}
                             />
                             <span className="text-sm">
-                I agree to the service terms and conditions
-              </span>
-                        </label>
-
+                                I agree to the service terms and conditions
+                            </span>
+                        </label> 
                         <p className="text-sm mt-2 text-gray-500">
                             AnyBackflow is not responsible for inaccessible backflow assemblies. Service fees apply for
                             inaccessible devices.
+                        </p>
+
+                        <p className="text-sm mt-2 text-gray-500">
+                            By submitting this number, I consent to receive recurring marketing messages from AnyBackFlow.com Inc. 
+                            Msg & data rates may apply. Msg frequency varies. Unsubscribe at any time by replying STOP. 
+                            Reply HELP for support. <a href="/privacy-policy" className="link link-primary">Privacy Policy</a> & <a href="/terms" className="link link-primary">Terms</a>.
                         </p>
                     </div>
 
