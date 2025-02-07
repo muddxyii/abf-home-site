@@ -1,6 +1,6 @@
 'use client'
 
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {useReCaptcha} from "next-recaptcha-v3";
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB limit
@@ -92,7 +92,12 @@ const ContactForm = () => {
                 })
             });
 
-            if (!res.ok) throw new Error();
+            if (!res.ok) {
+                const errorMessage = await res.text();
+                setStatus('error');
+                console.error('Failed to send message:', errorMessage || 'Unknown error');
+                return;
+            }
             setStatus('sent');
             setValues({
                 name: '', email: '', phone: '', address: '', message: '',
