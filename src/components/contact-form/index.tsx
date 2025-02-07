@@ -1,6 +1,6 @@
 'use client'
 
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {useReCaptcha} from "next-recaptcha-v3";
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB limit
@@ -92,7 +92,12 @@ const ContactForm = () => {
                 })
             });
 
-            if (!res.ok) throw new Error();
+            if (!res.ok) {
+                const errorMessage = await res.text();
+                setStatus('error');
+                console.error('Failed to send message:', errorMessage || 'Unknown error');
+                return;
+            }
             setStatus('sent');
             setValues({
                 name: '', email: '', phone: '', address: '', message: '',
@@ -274,13 +279,22 @@ const ContactForm = () => {
                                 onChange={(e) => setValues({...values, terms: e.target.checked})}
                             />
                             <span className="text-sm">
-                I agree to the service terms and conditions
-              </span>
+                                I agree to the service terms and conditions
+                            </span>
                         </label>
-
                         <p className="text-sm mt-2 text-gray-500">
                             AnyBackflow is not responsible for inaccessible backflow assemblies. Service fees apply for
                             inaccessible devices.
+                        </p>
+
+                        <p className="text-sm mt-2 text-gray-500">
+                            By submitting this number, I consent to receive recurring marketing messages from
+                            AnyBackFlow.com Inc.
+                            Msg & data rates may apply. Msg frequency varies. Unsubscribe at any time by replying STOP.
+                            Reply HELP for support. <a href="/privacy-policy" className="link link-primary"
+                                                       target="_blank" rel="noopener noreferrer">Privacy Policy</a> & <a
+                            href="/terms" className="link link-primary" target="_blank"
+                            rel="noopener noreferrer">Terms</a>.
                         </p>
                     </div>
 
