@@ -18,7 +18,7 @@ export default function Terms() {
                             Terms
                         </h1>
                         <p className="text-lg max-w-2xl mx-auto">
-                            Last updated: February 07, 2025
+                            Last updated: March 03, 2025
                         </p>
                     </div>
                 </div>
