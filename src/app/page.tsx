@@ -87,18 +87,24 @@ export default function Home() {
                             <div>
                                 <h1 className="text-4xl md:text-5xl font-bold mb-6">Licensed Backflow Testing & Repair
                                     in
-                                    Phoenix</h1>
-                                <p className="text-lg mb-8 max-w-2xl mx-auto">State-certified specialists providing
+                                    Phoenix and Surrounding Cities, Counties and Communities</h1>
+                                <p className="text-lg mb-8 max-w-2xl mx-auto">Certified specialists providing
                                     annual backflow
-                                    testing, repairs, and installations. Protect your water supply with Arizona&apos;s
-                                    trusted experts.</p>
-                                <div className="flex gap-4 justify-center flex-wrap">
-                                    <a href="#contact" className="btn btn-primary btn-lg">
+                                    testing, repairs, and replacements. Protect your water supply with AnyBackflow.com
+                                    Inc.</p>
+                                <div className="flex gap-6 justify-center flex-col sm:flex-row items-center">
+                                    <a href="#contact"
+                                       className="btn btn-primary btn-lg shadow-md hover:shadow-lg transition-shadow min-w-64">
                                         Schedule Your Service Today
                                     </a>
-                                    <div className="flex items-center gap-2 px-6 py-2 bg-base-100 rounded-lg shadow-sm">
-                                        <Shield className="text-primary" size={24}/>
-                                        <span className="text-sm font-medium">ROC 252348 Licensed & Insured</span>
+                                    <div
+                                        className="flex flex-col sm:flex-row items-center gap-4 px-6 py-4 bg-base-100 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                                        <Shield className="text-primary w-8 h-8"/>
+                                        <div className="flex flex-col items-center sm:items-start">
+                                            <span className="font-semibold text-base">ROC C37 252348</span>
+                                            <span className="font-semibold text-base">ROC CR16 334105</span>
+                                            <span className="text-sm text-base-content/80">Licensed & Insured</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +123,7 @@ export default function Home() {
                                     <div>
                                         <h2 className="card-title text-2xl mb-2">Expert Backflow Testing</h2>
                                         <p>Licensed specialists for all backflow testing
-                                            needs: domestic, irrigation, fire systems, and hydrants.</p>
+                                            needs: domestic, irrigation, fire systems, and temporary connections.</p>
                                     </div>
                                 </div>
                                 <ul className="space-y-3">
@@ -140,12 +146,13 @@ export default function Home() {
                                     </div>
                                     <div>
                                         <h2 className="card-title text-2xl mb-2">Professional Repair & Installation</h2>
-                                        <p>Complete backflow prevention solutions with 24/7
-                                            emergency services.</p>
+                                        <p>Complete backflow prevention service and security solutions with repair
+                                            certified
+                                            technicians.</p>
                                     </div>
                                 </div>
                                 <ul className="space-y-3">
-                                    {['Security Cage Installation', 'Emergency Repairs', 'New System Installation'].map((item) => (
+                                    {['Repairs', 'Replacements', 'Security Cage Installations'].map((item) => (
                                         <li key={item} className="flex items-center gap-2">
                                             <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
                                             {item}
